@@ -23,6 +23,9 @@
 | `origin` | Fired when the origin is selected. |
 | `destination` | Fired when the destination is selected. |
 | `profile` | Fired when a profile is selected. |
+| `setwaypoints` | Fired when multiple waypoints are updated. |
+| `waypoint` | Fired when a waypoint is added or set |
+| `removewaypoint` | Fired when a waypoint is removed |
 | `selectRoute` | Fired when a route is selected. |
 | `highlightRoute` | Fired when a route is highlighted. |
 | `highlightStep` | Fired when a step is highlighted. |
