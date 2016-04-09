@@ -38,10 +38,14 @@ var Layer = L.LayerGroup.extend({
         }).on('drag', this._drag, this);
 
         this.stepMarker = L.marker([0, 0], {
-            icon: L.divIcon({
-                className: 'mapbox-marker-drag-icon mapbox-marker-drag-icon-step',
-                iconSize: new L.Point(12, 12)
+            icon: L.mapbox.marker.icon({
+                'marker-size': 'medium',
+                'marker-color': '#444',
             })
+            // L.divIcon({
+            //     className: 'mapbox-marker-drag-icon mapbox-marker-drag-icon-step',
+            //     iconSize: new L.Point(12, 12)
+            // })
         });
 
         this.dragMarker = L.marker([0, 0], {
@@ -72,6 +76,9 @@ var Layer = L.LayerGroup.extend({
         this._directions
             .on('origin', this._origin, this)
             .on('destination', this._destination, this)
+            // .on('waypoint', this._waypoint, this)
+            // .on('setwaypoints', this._setwaypoints, this)
+            // .on('waypointremove', this._waypointremove, this)
             .on('load', this._load, this)
             .on('unload', this._unload, this)
             .on('selectRoute', this._selectRoute, this)
@@ -83,6 +90,9 @@ var Layer = L.LayerGroup.extend({
         this._directions
             .off('origin', this._origin, this)
             .off('destination', this._destination, this)
+            // .off('waypoint', this._waypoint, this)
+            // .off('setwaypoints', this._setwaypoints, this)
+            // .off('waypointremove', this._waypointremove, this)
             .off('load', this._load, this)
             .off('unload', this._unload, this)
             .off('selectRoute', this._selectRoute, this)

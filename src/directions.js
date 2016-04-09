@@ -156,17 +156,19 @@ var Directions = L.Class.extend({
             this._query.abort();
         }
 
-        if (this._requests && this._requests.length) this._requests.forEach(function(request) {
-            request.abort();
-        });
+        if (this._requests && this._requests.length){
+          this._requests.forEach(function(request) {
+              request.abort();
+          });
+        }
         this._requests = [];
 
         var q = queue();
 
         var pts = [this.origin, this.destination].concat(this._waypoints);
         for (var i in pts) {
-            if (!pts[i].geometry.coordinates) {
-                q.defer(L.bind(this._geocode, this), pts[i], opts.proximity);
+            if (!pts[i].properties.name) {
+              q.defer(L.bind(this._geocode, this), pts[i], opts.proximity);
             }
         }
 
@@ -213,7 +215,10 @@ var Directions = L.Class.extend({
     },
 
     _geocode: function(waypoint, proximity, cb) {
-        if (!this._requests) this._requests = [];
+        if (!this._requests) {
+          this._requests = [];
+        }
+
         this._requests.push(request(L.Util.template(Directions.GEOCODER_TEMPLATE, {
             query: waypoint.properties.query,
             token: this.options.accessToken || L.mapbox.accessToken,
@@ -226,7 +231,6 @@ var Directions = L.Class.extend({
             if (!resp.features || !resp.features.length) {
                 return cb(new Error("No results found for query " + waypoint.properties.query));
             }
-
             waypoint.geometry.coordinates = resp.features[0].center;
             waypoint.properties.name = resp.features[0].place_name;
 
